@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PIToolRemake.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="purple_head.jpg"
+                HeightRequest="185"
+                Aspect="AspectFit"/>
+
+            <Button
+                x:Name="ScoreCalBtn"
+                Text="分数计算器" 
+                SemanticProperties.Hint="计算主游戏和普通场景的分数！"
+                Clicked="ScoreCalBtn_Clicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="ScenListScoreBtn"
+                Text="个人场景库成绩查询"
+                SemanticProperties.Hint="查询个人的场景库所有成绩！"
+                Clicked="ScenListScoreBtn_Clicked"
+                HorizontalOptions="Fill"/>
+
+            <Button
+                x:Name="ScenListRksBtn"
+                Text="场景库得分排名"
+                SemanticProperties.Hint="获取当前世界的排名！"
+                Clicked="ScenListRksBtn_Clicked"    
+                HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="RandomScenBtn"
+                Text="试试手气？"
+                SemanticProperties.Hint="随机获取一个场景！"
+                Clicked="RandomScenBtn_Clicked"
+                HorizontalOptions="Fill"/>
+
+            <Button
+                x:Name="ScenListBtn"
+                Text="场景列表"
+                SemanticProperties.Hint="获取当前最新的场景库列表！"
+                Clicked="ScenListBtn_Clicked"
+                HorizontalOptions="Fill"/>
+
+            <Button
+                x:Name="AuthorBtn"
+                Text="关于作者"
+                Clicked="AuthorBtn_Clicked"
+                HorizontalOptions="Fill"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

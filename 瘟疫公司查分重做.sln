@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PIToolRemake", "PIToolRemake\PIToolRemake.csproj", "{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC37B4E-C20F-4290-B07E-B95E895A4B8B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {76895DEC-A42F-4C57-91BD-72E81453838E}
+	EndGlobalSection
+EndGlobal
