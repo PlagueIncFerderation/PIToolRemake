@@ -3,10 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PIToolRemake.AuthorPage"
              Title="关于作者">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout
+        Margin="20"
+        Padding="20">
+        <Image Source="dotnet_bot.png"
+               HeightRequest="185"
+               Aspect="AspectFit"/>
+
+        <Label>
+            <Label.Text>
+                本应用（PI Tool Reborn）
+                由屑乙烯独立开发，
+                采用独特的.NET MAUI技术，
+                使得该应用突破了限制，具有良好的跨平台能力。
+                在此感谢kid和CaptGyrfalcon两位前辈
+                为该程序前身pitool及其旧后端做出的贡献。
+                如果有赞助服务器运营的想法，请联系白老师！
+                
+                给屑乙烯买饭：
+            </Label.Text>
+        </Label>
+
+        <Image
+            Source="sponsor.png"
+            HeightRequest="185"
+            Aspect="AspectFit"
+            />
+
     </VerticalStackLayout>
 </ContentPage>

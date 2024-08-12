@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PIToolRemake"
+             x:Class="PIToolRemake.ScenListPage"
+             Title="场景库内容视图">
+    <ContentPage.BindingContext>
+        <local:ScenListPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <local:FeatureConverter x:Key="FeatureConverter"/>
+        <local:TypeConverter x:Key="TypeConverter"/>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <Grid Padding="30,0"
+              Margin="20"
+              HorizontalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Text="按ID排序"
+                Clicked="OnSortByID"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="10"/>
+
+            <Button
+                Text="按包排序"
+                Clicked="OnSortByPackage"
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10"/>
+
+            <Button
+                Text="按定数排序"
+                Clicked="OnSortByConstant"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="10"/>
+
+            <Button
+                Text="按作者排序"
+                Clicked="OnSortByAuthor"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10"/>
+        </Grid>
+
+
+        <ScrollView
+            Padding="30,0"
+            Orientation="Both"
+            HorizontalOptions="Fill">
+            <CollectionView ItemsSource="{Binding ScenList}" x:Name="scenarioList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding scenarioID}"/>
+                                <Label Text="{Binding scenarioName}"/>
+                                <Label Text="{Binding author}"/>
+                                <Label Text="{Binding scenarioType, Converter={StaticResource TypeConverter}}"/>
+                                <Label Text="{Binding constant}"/>
+                                <Label Text="{Binding scoreMultiplier}"/>
+                                <Label Text="{Binding feature, Converter={StaticResource FeatureConverter}}"/>
+                                <Label Text="{Binding package}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </VerticalStackLayout>
+
+</ContentPage>
