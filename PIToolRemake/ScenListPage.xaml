@@ -59,23 +59,27 @@
             Padding="30,0"
             Orientation="Both"
             HorizontalOptions="Fill">
-            <CollectionView ItemsSource="{Binding ScenList}" x:Name="scenarioList">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout>
-                                <Label Text="{Binding scenarioID}"/>
-                                <Label Text="{Binding scenarioName}"/>
-                                <Label Text="{Binding author}"/>
-                                <Label Text="{Binding constant}"/>
-                                <Label Text="{Binding scoreMultiplier}"/>
-                                <Label Text="{Binding feature, Converter={StaticResource FeatureConverter}}"/>
-                                <Label Text="{Binding package, Converter={StaticResource PackageConverter}}"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <VerticalStackLayout
+                Spacing="10">
+                <CollectionView ItemsSource="{Binding ScenList}" x:Name="scenarioList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding scenarioID}"/>
+                                    <Label Text="{Binding scenarioName}"/>
+                                    <Label Text="{Binding author}"/>
+                                    <Label Text="{Binding constant}"/>
+                                    <Label Text="{Binding scoreMultiplier}"/>
+                                    <Label Text="{Binding feature, Converter={StaticResource FeatureConverter}}"/>
+                                    <Label Text="{Binding package, Converter={StaticResource PackageConverter}}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
         </ScrollView>
     </VerticalStackLayout>
 

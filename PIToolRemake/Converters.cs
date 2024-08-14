@@ -1,5 +1,7 @@
 ﻿using System.Globalization;
 
+#pragma warning disable CS8767 // 参数类型中引用类型的为 Null 性与隐式实现的成员不匹配(可能是由于为 Null 性特性)。
+
 namespace PIToolRemake
 {
     public class FeatureConverter : IValueConverter

@@ -1,12 +1,6 @@
-using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Globalization;
-using System.Threading.Tasks;
 
 namespace PIToolRemake
 {

@@ -1,7 +1,4 @@
-﻿using Microsoft.Maui;
-using Microsoft.Maui.Controls;
-
-namespace PIToolRemake
+﻿namespace PIToolRemake
 {
 
     public partial class MainPage : ContentPage
@@ -21,8 +18,14 @@ namespace PIToolRemake
         public MainPage()
         {
             InitializeComponent();
-            MauiProgram.GetScenarioListAsync();
-            MauiProgram.GetPackagesAsync();
+        }
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+            await MauiProgram.GetScenarioListAsync();
+            await MauiProgram.GetPackageListAsync();
+            await MauiProgram.GetPlayerListAsync();
         }
 
         private void ScoreCalBtn_Clicked(object sender, EventArgs e)

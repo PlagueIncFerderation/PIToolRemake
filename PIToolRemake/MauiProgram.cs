@@ -1,23 +1,27 @@
 ﻿using Microsoft.Extensions.Logging;
 using Npgsql;
+using NpgsqlTypes;
 
 namespace PIToolRemake
 {
     public static class MauiProgram
     {
-        public static List<Scenario> Scenarios=[];
-        public static Dictionary<string, string> Packages = new();
+        public static Dictionary<string, string> Packages { get; set; } = [];
+        public static List<Scenario> Scenarios { get; set; } = [];
+        public static Dictionary<int, Scenario> ScenarioDictionary { get; set; } = [];
+        public static Dictionary<int, Player> Players { get; set; } = [];
+        public static Dictionary<int, KeyValuePair<int, int>> Scores { get; set; } = [];// <scenarioID, <score, ranking>>
 
         public static async Task GetScenarioListAsync()
         {
             string query = "SELECT scenarioid, scenarioname, multiplier, constant, author, packid, feature FROM public.scenario";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
-            using var command = new NpgsqlCommand(query);
-            using var reader = command.ExecuteReader();
+            using var command = new NpgsqlCommand(query, connection);
+            using var reader =await command.ExecuteReaderAsync();
             if (reader.HasRows)
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Scenario scenario = new Scenario
                     {
@@ -32,15 +36,16 @@ namespace PIToolRemake
                     Scenarios.Add(scenario);
                 }
             }
+            ScenarioDictionary = Scenarios.ToDictionary(item => item.ScenarioID, item => item);
         }
 
-        public static async Task GetPackagesAsync()
+        public static async Task GetPackageListAsync()
         {
             string query = "SELECT packageid, packagename FROM public.packagename";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
-            using var command = new NpgsqlCommand(query);
-            using var reader = command.ExecuteReader();
+            using var command = new NpgsqlCommand(query,connection);
+            using var reader =await command.ExecuteReaderAsync();
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -48,6 +53,55 @@ namespace PIToolRemake
                     string pkgID = reader.GetString(reader.GetOrdinal("packageid"));
                     string pkgName = reader.GetString(reader.GetOrdinal("packagename"));
                     Packages.Add(pkgID, pkgName);
+                }
+            }
+        }
+
+        public static async Task GetBestScoreAsync(int userid)
+        {
+            string query = "SELECT scenarioid, score, rating FROM public.score WHERE userid=@userid";
+            using var connection = new NpgsqlConnection(Configs.ConnectionStr);
+            await connection.OpenAsync();
+            using var command = new NpgsqlCommand(query,connection);
+            command.Parameters.Add("@param", NpgsqlDbType.Integer).Value = userid;
+            using var reader = await command.ExecuteReaderAsync();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(reader.GetOrdinal("scenarioid"));
+                    int score = reader.GetInt32(reader.GetOrdinal("score"));
+                    int ranking = reader.GetInt32(reader.GetOrdinal("rating"));
+                    var kvp = new KeyValuePair<int, int>(score, ranking);
+                    Scores.Add(id, kvp);
+                }
+            }
+        }
+
+        public static async Task GetPlayerListAsync()
+        {
+            string query = "SELECT userid, qqnumber, nickname, potential, banned, scoresum, rank FROM public.player";
+            using var connection = new NpgsqlConnection(Configs.ConnectionStr);
+            await connection.OpenAsync();
+            using var command = new NpgsqlCommand(query,connection);
+            using var reader =await command.ExecuteReaderAsync();
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Player player = new()
+                        {
+                            ID = reader.GetInt32(reader.GetOrdinal("userid")),
+                            IsBlocked = reader.GetBoolean(reader.GetOrdinal("banned")),
+                            Nickname = reader.GetString(reader.GetOrdinal("nickname")),
+                            Potential = reader.GetFloat(reader.GetOrdinal("potential")),
+                            QQNumber = reader.GetString(reader.GetOrdinal("qqnumber")),
+                            Ranking = reader.GetInt32(reader.GetOrdinal("rank")),
+                            TotalScore = reader.GetInt64(reader.GetOrdinal("scoresum"))
+                        };
+                        Players.Add(player.ID, player);
+                    }
                 }
             }
         }
@@ -64,7 +118,7 @@ namespace PIToolRemake
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

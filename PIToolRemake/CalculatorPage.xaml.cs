@@ -1,12 +1,10 @@
-using Microsoft.Maui.Controls;
-using PIToolRemake;
 using System.ComponentModel;
 
 namespace PIToolRemake
 {
     public partial class CalculatorPage : ContentPage
     {
-        private CalculatePageViewModel _viewModel;
+        private CalculatePageViewModel _viewModel = new();
         public CalculatorPage()
         {
             InitializeComponent();
@@ -35,7 +33,7 @@ namespace PIToolRemake
     {
         private int _score = 0;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public int Score
         {
@@ -46,7 +44,7 @@ namespace PIToolRemake
                 OnPropertyChanged();
             }
         }
-        protected virtual void OnPropertyChanged(string propertyName = null)
+        protected virtual void OnPropertyChanged(string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
