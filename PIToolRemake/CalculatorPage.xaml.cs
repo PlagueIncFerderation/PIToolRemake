@@ -6,29 +6,27 @@ namespace PIToolRemake
 {
     public partial class CalculatorPage : ContentPage
     {
-
+        private CalculatePageViewModel _viewModel;
         public CalculatorPage()
         {
             InitializeComponent();
-            BindingContext = new CalculatePageViewModel();
+            BindingContext = _viewModel;
         }
 
         private void CalculateBtn_Clicked(object sender, EventArgs e)
         {
             try
-
             {
                 int d = int.Parse(Days.Text);
                 float c = float.Parse(Cure.Text);
                 float m = float.Parse(Multiplier.Text);
-
                 int s = (int)(20000000 * (4 - c) * (1 + m) / (3 * d));
-
-                ((CalculatePageViewModel)BindingContext).Score = s;
+                _viewModel.Score = s;
             }
-            catch
+            catch (Exception ex)
             {
-                ((CalculatePageViewModel)BindingContext).Score = 0;
+                DisplayAlert("错误发生", ex.Message + Environment.NewLine + "如果你不能看懂上述文本，请咨询翻译软件或屑乙烯", "OK");
+                _viewModel.Score = 0;
             }
         }
     }

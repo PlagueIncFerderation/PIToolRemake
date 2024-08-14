@@ -73,6 +73,9 @@
 	  <MauiXaml Update="CalculatorPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="PersonalScorePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ScenListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -9,7 +9,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <local:FeatureConverter x:Key="FeatureConverter"/>
-        <local:TypeConverter x:Key="TypeConverter"/>
+        <local:PackageConverter x:Key="PackageConverter"/>
     </ContentPage.Resources>
 
     <VerticalStackLayout>
@@ -67,11 +67,10 @@
                                 <Label Text="{Binding scenarioID}"/>
                                 <Label Text="{Binding scenarioName}"/>
                                 <Label Text="{Binding author}"/>
-                                <Label Text="{Binding scenarioType, Converter={StaticResource TypeConverter}}"/>
                                 <Label Text="{Binding constant}"/>
                                 <Label Text="{Binding scoreMultiplier}"/>
                                 <Label Text="{Binding feature, Converter={StaticResource FeatureConverter}}"/>
-                                <Label Text="{Binding package}"/>
+                                <Label Text="{Binding package, Converter={StaticResource PackageConverter}}"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

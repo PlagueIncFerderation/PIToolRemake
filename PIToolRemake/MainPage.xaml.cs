@@ -30,8 +30,8 @@ namespace PIToolRemake
         public MainPage()
         {
             InitializeComponent();
-            MauiProgram.GetScenarioList();
-
+            MauiProgram.GetScenarioListAsync();
+            MauiProgram.GetPackagesAsync();
         }
 
         private void ScoreCalBtn_Clicked(object sender, EventArgs e)
@@ -55,15 +55,6 @@ namespace PIToolRemake
             else
             {
                 Scenario item = RandomPicker.PickRandomElement(MauiProgram.Scenarios);
-                string type = item.ScenarioType switch
-                {
-                    0 => "Reborn",
-                    1 => "Novice",
-                    2 => "Origin",
-                    3 => "Alpha",
-                    4 => "Omega",
-                    _ => "Origin"
-                };
                 string feature = item.Feature switch
                 {
                     1 => "[Buster]",
@@ -76,11 +67,11 @@ namespace PIToolRemake
                     0 => "[Balanced]",
                     _ => "[Balanced]",
                 };
-                string message1 = $"[{type} {item.Constant}]";
+                string message1 = $"[{item.Constant}]";
                 string message2 = item.ScenarioName;
                 string message3 = $"By {item.Author}";
-                string msg = string.Join(separator: Environment.NewLine, message1, message2, message3, feature);
-                DisplayAlert("我是标题", msg, "OK");
+                string msg = string.Join(separator: Environment.NewLine, message2 + " " + message1, message3, feature);
+                DisplayAlert("您随机到的场景是", msg, "OK");
             }
         }
 

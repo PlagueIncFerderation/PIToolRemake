@@ -10,6 +10,7 @@
     </ContentPage.BindingContext>
     <VerticalStackLayout VerticalOptions="Center"
                          Margin="20"
+                         Spacing="20"
                          Padding="20">
         <Grid>
             <Grid.RowDefinitions>
@@ -24,7 +25,9 @@
 
             <Label Text="天数"
                    Grid.Row="0"
-                   Grid.Column="0"/>
+                   Grid.Column="0"
+                   FontSize="Medium"
+                   VerticalOptions="Center"/>
             <Entry x:Name="Days"
                    HorizontalOptions="Fill"
                    Grid.Row="0"
@@ -32,7 +35,9 @@
 
             <Label Text="解药"
                    Grid.Row="1"
-                   Grid.Column="0"/>
+                   Grid.Column="0"
+                   FontSize="Medium"
+                   VerticalOptions="Center"/>
             <Entry x:Name="Cure"
                    HorizontalOptions="Fill"
                    Grid.Row="1"
@@ -40,13 +45,15 @@
 
             <Label Text="分倍率"
                    Grid.Row="2"
-                   Grid.Column="0"/>
+                   Grid.Column="0"
+                   FontSize="Medium"
+                   VerticalOptions="Center"/>
             <Entry x:Name="Multiplier"
                    HorizontalOptions="Fill"
                    Grid.Row="2"
                    Grid.Column="1"/>
         </Grid>
-        
+
         <Button
             x:Name="CalculateBtn"
             VerticalOptions="Fill"
@@ -58,7 +65,8 @@
             x:Name="Score"
             VerticalOptions="Center"
             HorizontalOptions="CenterAndExpand" 
-            Text="{Binding Score, StringFormat='Score: {0}'}"/>
+            Text="{Binding Score, StringFormat='Score: {0}'}"
+            FontSize="Medium"/>
 
     </VerticalStackLayout>
 </ContentPage>
