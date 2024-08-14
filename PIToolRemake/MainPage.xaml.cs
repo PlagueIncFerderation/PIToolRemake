@@ -3,16 +3,7 @@ using Microsoft.Maui.Controls;
 
 namespace PIToolRemake
 {
-    public class RandomPicker
-    {
-        private static Random _random = new(); // 静态实例，确保整个程序中只创建一次
 
-        public static T PickRandomElement<T>(List<T> list)
-        {
-            int randomIndex = _random.Next(list.Count); // 生成随机索引
-            return list[randomIndex]; // 返回对应索引的元素
-        }
-    }
     public partial class MainPage : ContentPage
     {
         private bool ScenarioListIsEmpty()
