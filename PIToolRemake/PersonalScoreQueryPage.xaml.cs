@@ -20,7 +20,7 @@ namespace PIToolRemake
             else if(MauiProgram.Players.TryGetValue(qqNumber, out var player))
             {
                 if (player.IsBlocked == false)
-                    Navigation.PushAsync(new PersonalScorePage(player.ID));
+                    Navigation.PushAsync(new PersonalScorePage(player));
                 else
                     DisplayAlert("该用户封禁中！", "如果对自己账户状态有疑问，请咨询管理员！", "OK");
             }

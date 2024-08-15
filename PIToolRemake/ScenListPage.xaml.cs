@@ -33,10 +33,12 @@ namespace PIToolRemake
         {
             InitializeComponent();
             _viewModel = new ScenListPageViewModel();
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             foreach (var scenario in MauiProgram.Scenarios)
-            {
                 _viewModel.ScenList.Add(scenario);
-            }
             BindingContext = _viewModel;
         }
         private void OnSortByID(object sender, EventArgs e)

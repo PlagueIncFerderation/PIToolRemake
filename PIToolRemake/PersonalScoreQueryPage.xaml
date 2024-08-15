@@ -4,12 +4,18 @@
              xmlns:local="clr-namespace:PIToolRemake"
              x:Class="PIToolRemake.PersonalScoreQueryPage"
              Title="查分！">
-    
+
     <VerticalStackLayout
         Padding="30,0"
         Margin="10"
+        Spacing="10"
         VerticalOptions="Center">
-        
+
+        <Image
+            Source="smiling_white.jpg"
+            HeightRequest="185"
+            Aspect="AspectFit"/>
+
         <Label 
             Text="请输入你的QQ账号！"
             VerticalOptions="Center" 
@@ -25,7 +31,7 @@
             Text="点我查分！"
             HorizontalOptions="Fill"
             Clicked="OnScoreQuery"/>
-        
+
     </VerticalStackLayout>
-    
+
 </ContentPage>

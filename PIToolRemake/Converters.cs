@@ -49,4 +49,28 @@ namespace PIToolRemake
             throw new NotImplementedException();
         }
     }
+
+    public class ScoreToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is int intValue)
+            {
+                return intValue switch
+                {
+                    >= 90000 => Colors.DarkOrange,
+                    >= 75000 => Colors.DarkRed,
+                    >= 65000 => Colors.Violet,
+                    >= 55000 => Colors.DarkGreen,
+                    >= 0 => Colors.DarkCyan,
+                    _ => throw new NotImplementedException()
+                };
+            }
+            return 0;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

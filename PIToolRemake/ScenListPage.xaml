@@ -60,7 +60,9 @@
             Orientation="Both"
             HorizontalOptions="Fill">
             <VerticalStackLayout
-                Spacing="10">
+                Spacing="10"
+                Margin="10"
+                Padding="30,0">
                 <CollectionView ItemsSource="{Binding ScenList}" x:Name="scenarioList">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

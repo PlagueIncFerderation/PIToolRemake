@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PIToolRemake"
              x:Class="PIToolRemake.PersonalScorePage"
              Title="个人场景库成绩">
+
+    <ContentPage.BindingContext>
+        <local:PersonalScorePageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <local:ScoreToColorConverter x:Key="ScoreToColorConverter"/>
+    </ContentPage.Resources>
+
     <VerticalStackLayout>
         <HorizontalStackLayout>
             <Image/>
-            <!--TODO: write the part of teh image-->
+            <!--TODO: write the part of getiing image of the user's head-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -18,11 +28,63 @@
                 </Grid.ColumnDefinitions>
 
                 <Label
-                    Text=""
+                    Text="{Binding Player.Nickname, StringFormat='昵称：{0}'}"
+                    Grid.Column="0"
+                    Grid.Row="0"/>
+
+                <Label
+                    Text="{Binding Player.TotalScore, StringFormat='总分：{0}'}"
+                    Grid.Column="1"
+                    Grid.Row="0"/>
+
+                <Label
+                    Text="{Binding Player.Potential, StringFormat='PTT：{0}'}"
+                    Grid.Column="0"
+                    Grid.Row="1"/>
+
+                <Label
+                    Text="{Binding Player.Ranking, StringFormat='#{0}'}"
+                    Grid.Column="1"
+                    Grid.Row="1"
                     FontSize="Medium"/>
-
-
             </Grid>
         </HorizontalStackLayout>
+        
+        <ScrollView Padding="30,0"
+            Orientation="Both"
+            HorizontalOptions="Fill">
+            <VerticalStackLayout
+                Spacing="10"
+                Margin="10"
+                Padding="30,0">
+                <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <HorizontalStackLayout>
+                                    <Image/>
+                                    <!--TODO: the head of the scenario-->
+
+                                        <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        
+                                    </Grid>
+                                    
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>
