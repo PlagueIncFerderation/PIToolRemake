@@ -9,7 +9,7 @@ namespace PIToolRemake
         public static Dictionary<string, string> Packages { get; set; } = [];
         public static List<Scenario> Scenarios { get; set; } = [];
         public static Dictionary<int, Scenario> ScenarioDictionary { get; set; } = [];
-        public static Dictionary<int, Player> Players { get; set; } = [];
+        public static Dictionary<string, Player> Players { get; set; } = [];
         public static Dictionary<int, KeyValuePair<int, int>> Scores { get; set; } = [];// <scenarioID, <score, ranking>>
 
         public static async Task GetScenarioListAsync()
@@ -100,7 +100,7 @@ namespace PIToolRemake
                             Ranking = reader.GetInt32(reader.GetOrdinal("rank")),
                             TotalScore = reader.GetInt64(reader.GetOrdinal("scoresum"))
                         };
-                        Players.Add(player.ID, player);
+                        Players.Add(player.QQNumber, player);
                     }
                 }
             }

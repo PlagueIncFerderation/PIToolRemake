@@ -35,7 +35,7 @@
 
         private void ScenListScoreBtn_Clicked(object sender, EventArgs e)
         {
-
+            Navigation.PushAsync(new PersonalScoreQueryPage());
         }
 
         private void ScenListRksBtn_Clicked(object sender, EventArgs e)

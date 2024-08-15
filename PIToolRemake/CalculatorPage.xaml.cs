@@ -8,6 +8,11 @@ namespace PIToolRemake
         public CalculatorPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             BindingContext = _viewModel;
         }
 

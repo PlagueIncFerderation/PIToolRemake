@@ -7,7 +7,7 @@ namespace PIToolRemake
     public class ScenListPageViewModel : INotifyPropertyChanged
     {
         private static ObservableCollection<Scenario> _scenList = [];
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<Scenario> ScenList
         {
             get => _scenList;
@@ -20,7 +20,7 @@ namespace PIToolRemake
                 }
             }
         }
-        protected virtual void OnPropertyChanged(string propertyName = null)
+        protected virtual void OnPropertyChanged(string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
