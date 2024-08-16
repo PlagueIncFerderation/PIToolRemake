@@ -1,6 +1,4 @@
-﻿using Npgsql;
-
-namespace PIToolRemake
+﻿namespace PIToolRemake
 {
     public static class Configs
     {

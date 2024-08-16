@@ -1,4 +1,6 @@
-﻿namespace PIToolRemake
+﻿using System.Windows.Input;
+
+namespace PIToolRemake
 {
     public class Scenario
     {
@@ -11,6 +13,6 @@
         public string Package { get; set; } = "";
         public string ImageUrl => $"http://47.241.0.156:34567/WebAPI/public/icons/{ScenarioID}.png";
         public string CacheFilePath => Path.Combine(FileSystem.AppDataDirectory, $"{ScenarioID}.png");
+        public string ScenarioFeatureString => ScenarioName + $"[{Constant}]";
     }
-
 }

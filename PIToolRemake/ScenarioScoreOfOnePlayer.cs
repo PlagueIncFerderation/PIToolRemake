@@ -1,19 +1,11 @@
-﻿using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PIToolRemake
+﻿namespace PIToolRemake
 {
-    public class ScenarioScore(int scenarioID)
+    public class ScenarioScoreOfOnePlayer(int scenarioID, int ranking, int score)
     {
-        public int ScenarioID { get; set; } = scenarioID;
+        public int ScenarioID { get; private set; } = scenarioID;
         public string ScenarioName => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.ScenarioName : string.Empty;
-        public int Ranking => MauiProgram.Scores.TryGetValue(ScenarioID, out var item) ? item.Value : 0;
-        public int Score => MauiProgram.Scores.TryGetValue(ScenarioID, out var item) ? item.Key : 0;
+        public int Ranking { get; private set; }= ranking;
+        public int Score {  get; private set; }= score;
         public float ScenarioConstant => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.Constant : 0;
         public float IndividualPotential => CalculateSinglePTT(Score, ScenarioConstant);
         public string ScenarioFeatureString => ScenarioName + $"[{ScenarioConstant}]";

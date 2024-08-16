@@ -1,4 +1,3 @@
-using Npgsql;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -18,9 +17,9 @@ public partial class PersonalScorePage : ContentPage
     protected async override void OnAppearing()
     {
         base.OnAppearing();
-        await MauiProgram.GetBestScoreAsync(_player.ID);
-        foreach (var item in MauiProgram.Scores)
-            _viewModel.ScoreList.Add(new ScenarioScore(item.Key));
+        await MauiProgram.GetScoresOfOnePlayerAsync(_player.ID);
+        foreach (var item in MauiProgram.ScoreListOfOnePlayer)
+            _viewModel.ScoreList.Add(item.Value);
         _viewModel.ScoreList = [.. _viewModel.ScoreList.OrderByDescending(item => item.IndividualPotential)];
         _viewModel.Player = _player;
         BindingContext = _viewModel;
@@ -52,8 +51,8 @@ public class PersonalScorePageViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private static ObservableCollection<ScenarioScore> _scoreList = [];
-    public ObservableCollection<ScenarioScore> ScoreList
+    private static ObservableCollection<ScenarioScoreOfOnePlayer> _scoreList = [];
+    public ObservableCollection<ScenarioScoreOfOnePlayer> ScoreList
     {
         get { return _scoreList; }
         set { _scoreList = value; OnPropertyChanged(); }

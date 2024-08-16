@@ -67,14 +67,29 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                    <Label Text="{Binding scenarioID}"/>
-                                    <Label Text="{Binding scenarioName}"/>
-                                    <Label Text="{Binding author}"/>
-                                    <Label Text="{Binding constant}"/>
-                                    <Label Text="{Binding scoreMultiplier}"/>
-                                    <Label Text="{Binding feature, Converter={StaticResource FeatureConverter}}"/>
-                                    <Label Text="{Binding package, Converter={StaticResource PackageConverter}}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding ScenarioID}" FontSize="Large"/>
+                                    <ImageButton Source="{Binding CacheFilePath}" Clicked="OnRankingListQuery"/>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="{Binding ScenarioFeatureString}" Grid.Column="0" Grid.Row="0"/>
+                                        <Label Text="{Binding Author}" Grid.Column="1" Grid.Row="0"/>
+                                        <Label Text="{Binding Constant}" Grid.Column="2" Grid.Row="0"/>
+                                        <Label Text="{Binding ScoreMultiplier}" Grid.Column="0" Grid.Row="1"/>
+                                        <Label Text="{Binding Feature, Converter={StaticResource FeatureConverter}}" Grid.Column="1" Grid.Row="1"/>
+                                        <Label Text="{Binding Package, Converter={StaticResource PackageConverter}}" Grid.Column="2" Grid.Row="1"/>
+
+                                    </Grid>
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

@@ -10,8 +10,8 @@ namespace PIToolRemake
         public static List<Scenario> Scenarios { get; set; } = [];
         public static Dictionary<int, Scenario> ScenarioDictionary { get; set; } = [];
         public static Dictionary<string, Player> Players { get; set; } = [];
-        public static Dictionary<int, KeyValuePair<int, int>> Scores { get; set; } = [];// <scenarioID, <score, ranking>>
-
+        public static Dictionary<int, ScenarioScoreOfOnePlayer> ScoreListOfOnePlayer { get; set; } = [];
+        public static Dictionary<int, ScenarioScoreOfOneScenario> ScoreListOfOneScenario { get; set; } = [];
         public static async Task GetScenarioListAsync()
         {
             string query = "SELECT scenarioid, scenarioname, multiplier, constant, author, packid, feature FROM public.scenario";
@@ -57,13 +57,14 @@ namespace PIToolRemake
             }
         }
 
-        public static async Task GetBestScoreAsync(int userid)
+        public static async Task GetScoresOfOnePlayerAsync(int userID)
         {
+            ScoreListOfOnePlayer.Clear();
             string query = "SELECT scenarioid, score, rating FROM public.score WHERE userid=@userid";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
             using var command = new NpgsqlCommand(query, connection);
-            command.Parameters.Add("@param", NpgsqlDbType.Integer).Value = userid;
+            command.Parameters.Add("@userid", NpgsqlDbType.Integer).Value = userID;
             using var reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
             {
@@ -72,8 +73,29 @@ namespace PIToolRemake
                     int id = reader.GetInt32(reader.GetOrdinal("scenarioid"));
                     int score = reader.GetInt32(reader.GetOrdinal("score"));
                     int ranking = reader.GetInt32(reader.GetOrdinal("rating"));
-                    var kvp = new KeyValuePair<int, int>(score, ranking);
-                    Scores.Add(id, kvp);
+                    ScoreListOfOnePlayer.Add(id, new ScenarioScoreOfOnePlayer(id,score,ranking));
+                }
+            }
+        }
+
+        public static async Task GetScoresOfOneScenarioAsync(int scenarioID)
+        {
+            ScoreListOfOneScenario.Clear();
+            ScenarioScoreOfOneScenario.Constant = ScenarioDictionary.TryGetValue(scenarioID, out var item) ? item.Constant : 0;
+            string query = "SELECT userid, score, rating FROM public.score WHERE scenarioid=@scenarioid";
+            using var connection = new NpgsqlConnection(Configs.ConnectionStr);
+            await connection.OpenAsync();
+            using var command = new NpgsqlCommand(query, connection);
+            command.Parameters.Add("@scenarioid", NpgsqlDbType.Integer).Value = scenarioID;
+            using var reader = await command.ExecuteReaderAsync();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(reader.GetOrdinal("userid"));
+                    int score = reader.GetInt32(reader.GetOrdinal("score"));
+                    int ranking = reader.GetInt32(reader.GetOrdinal("rating"));
+                    ScoreListOfOneScenario.Add(id, new ScenarioScoreOfOneScenario(id, score, ranking));
                 }
             }
         }

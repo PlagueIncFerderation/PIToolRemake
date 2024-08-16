@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Windows.Input;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace PIToolRemake
 {
@@ -24,6 +26,8 @@ namespace PIToolRemake
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public ICommand? RankingsQueryCommand { get; set; }
     }
 
     public partial class ScenListPage : ContentPage
@@ -33,6 +37,7 @@ namespace PIToolRemake
         {
             InitializeComponent();
             _viewModel = new ScenListPageViewModel();
+            _viewModel.RankingsQueryCommand = new Command<int>(OnSelectLevel);
         }
         protected override void OnAppearing()
         {
@@ -66,6 +71,10 @@ namespace PIToolRemake
             _viewModel.ScenList = [.. _viewModel.ScenList.OrderByDescending(scenario => scenario.Author)];
             RefreshScenarioList();
         }
+        public void OnSelectLevel(int levelId)
+        {
+            //await Navigation.PushAsync(new ScenarioScorePage);
+            throw new NotImplementedException();
+        }
     }
-
 }

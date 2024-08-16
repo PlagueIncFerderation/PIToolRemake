@@ -1,7 +1,3 @@
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
-
 namespace PIToolRemake
 {
 
@@ -15,9 +11,9 @@ namespace PIToolRemake
         private void OnScoreQuery(object sender, EventArgs e)
         {
             string qqNumber = QQNumberEntry.Text;
-            if(string.IsNullOrEmpty(qqNumber))
+            if (string.IsNullOrEmpty(qqNumber))
                 DisplayAlert("ƒ„…–Œ¥ ‰»Îƒ„µƒQQ∫≈£°", "«Î ‰»Îƒ„µƒQQ∫≈£°", "OK");
-            else if(MauiProgram.Players.TryGetValue(qqNumber, out var player))
+            else if (MauiProgram.Players.TryGetValue(qqNumber, out var player))
             {
                 if (player.IsBlocked == false)
                     Navigation.PushAsync(new PersonalScorePage(player));
