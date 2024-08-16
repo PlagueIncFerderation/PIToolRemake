@@ -16,6 +16,8 @@ namespace PIToolRemake
         public int Score => MauiProgram.Scores.TryGetValue(ScenarioID, out var item) ? item.Key : 0;
         public float ScenarioConstant => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.Constant : 0;
         public float IndividualPotential => CalculateSinglePTT(Score, ScenarioConstant);
+        public string ScenarioFeatureString => ScenarioName + $"[{ScenarioConstant}]";
+        public string CacheFilePath => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.CacheFilePath : String.Empty;
 
         private static float CalculateSinglePTT(int score, float constant)
         {

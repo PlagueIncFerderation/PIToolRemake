@@ -18,7 +18,7 @@ namespace PIToolRemake
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
             using var command = new NpgsqlCommand(query, connection);
-            using var reader =await command.ExecuteReaderAsync();
+            using var reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
             {
                 while (await reader.ReadAsync())
@@ -44,8 +44,8 @@ namespace PIToolRemake
             string query = "SELECT packageid, packagename FROM public.packagename";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
-            using var command = new NpgsqlCommand(query,connection);
-            using var reader =await command.ExecuteReaderAsync();
+            using var command = new NpgsqlCommand(query, connection);
+            using var reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -62,7 +62,7 @@ namespace PIToolRemake
             string query = "SELECT scenarioid, score, rating FROM public.score WHERE userid=@userid";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
-            using var command = new NpgsqlCommand(query,connection);
+            using var command = new NpgsqlCommand(query, connection);
             command.Parameters.Add("@param", NpgsqlDbType.Integer).Value = userid;
             using var reader = await command.ExecuteReaderAsync();
             if (reader.HasRows)
@@ -83,8 +83,8 @@ namespace PIToolRemake
             string query = "SELECT userid, qqnumber, nickname, potential, banned, scoresum, rank FROM public.player";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
-            using var command = new NpgsqlCommand(query,connection);
-            using var reader =await command.ExecuteReaderAsync();
+            using var command = new NpgsqlCommand(query, connection);
+            using var reader = await command.ExecuteReaderAsync();
             {
                 if (reader.HasRows)
                 {
@@ -102,6 +102,22 @@ namespace PIToolRemake
                         };
                         Players.Add(player.QQNumber, player);
                     }
+                }
+            }
+        }
+
+        public static async Task GetScenarioImageAsync()
+        {
+            using var client = new HttpClient();
+            foreach (var scenario in Scenarios)
+            {
+                string imageUrl = scenario.ImageUrl;
+                string filePath = scenario.CacheFilePath;
+                var response = await client.GetAsync(imageUrl);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsByteArrayAsync();
+                    await File.WriteAllBytesAsync(filePath, content);
                 }
             }
         }

@@ -9,6 +9,8 @@
         public string Author { get; set; } = "";
         public int Feature { get; set; } = 0;
         public string Package { get; set; } = "";
+        public string ImageUrl => $"http://47.241.0.156:34567/WebAPI/public/icons/{ScenarioID}.png";
+        public string CacheFilePath => Path.Combine(FileSystem.AppDataDirectory, $"{ScenarioID}.png");
     }
 
 }

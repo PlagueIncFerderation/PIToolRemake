@@ -26,6 +26,7 @@
             await MauiProgram.GetScenarioListAsync();
             await MauiProgram.GetPackageListAsync();
             await MauiProgram.GetPlayerListAsync();
+            await MauiProgram.GetScenarioImageAsync();
         }
 
         private void ScoreCalBtn_Clicked(object sender, EventArgs e)

@@ -15,7 +15,7 @@
 
     <VerticalStackLayout>
         <HorizontalStackLayout>
-            <Image/>
+            <Image Source="{Binding FilePath}"/>
             <!--TODO: write the part of getiing image of the user's head-->
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,18 +35,22 @@
                 <Label
                     Text="{Binding Player.TotalScore, StringFormat='总分：{0}'}"
                     Grid.Column="1"
+                    FontFamily="Consolas"
                     Grid.Row="0"/>
 
                 <Label
                     Text="{Binding Player.Potential, StringFormat='PTT：{0}'}"
                     Grid.Column="0"
-                    Grid.Row="1"/>
+                    Grid.Row="1"
+                    FontFamily="Consolas"
+                    FontSize="Medium"/>
 
                 <Label
                     Text="{Binding Player.Ranking, StringFormat='#{0}'}"
                     Grid.Column="1"
                     Grid.Row="1"
-                    FontSize="Medium"/>
+                    FontFamily="Consolas"
+                    FontSize="Large"/>
             </Grid>
         </HorizontalStackLayout>
         
@@ -62,10 +66,10 @@
                         <DataTemplate>
                             <ViewCell>
                                 <HorizontalStackLayout>
-                                    <Image/>
+                                    <Image Source="{Binding CacheFilePath}"/>
                                     <!--TODO: the head of the scenario-->
 
-                                        <Grid>
+                                    <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
@@ -74,10 +78,33 @@
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        
-                                        
+
+                                        <Label
+                                            Text="{Binding ScenarioFeatureString}"
+                                            Grid.Column="0"
+                                            Grid.Row="0"/>
+
+                                        <Label
+                                            Text="{Binding Score}"
+                                            TextColor="{Binding Score, Converter={StaticResource ScoreToColorConverter}}"
+                                            FontFamily="Consolas"
+                                            Grid.Column="1"
+                                            Grid.Row="0"/>
+
+                                        <Label
+                                            Text="{Binding IndividualPotential}"
+                                            FontFamily="Consolas"
+                                            FontSize="Medium"
+                                            Grid.Column="0"
+                                            Grid.Row="1"/>
+
+                                        <Label
+                                            Text="{Binding IndividualPotential, StringFormat='#{0}'}"
+                                            FontSize="Large"
+                                            FontFamily="Consolas"
+                                            Grid.Column="1"
+                                            Grid.Row="1"/>
                                     </Grid>
-                                    
                                 </HorizontalStackLayout>
                             </ViewCell>
                         </DataTemplate>
