@@ -63,7 +63,7 @@
                     _ => "[Balanced]",
                 };
                 string message1 = $"[{item.Constant}]";
-                string message2 = item.ScenarioName;
+                string message2 = item.Name;
                 string message3 = $"By {item.Author}";
                 string msg = string.Join(separator: Environment.NewLine, message2 + " " + message1, message3, feature);
                 DisplayAlert("您随机到的场景是", msg, "OK");

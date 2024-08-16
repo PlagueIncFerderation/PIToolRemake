@@ -13,6 +13,7 @@ namespace PIToolRemake
         public int Ranking { get; private set; } = ranking;
         public static float Constant { private get; set; }
         public float Potential => CalculateSinglePTT(Score, Constant);
+        public string CachePath => Path.Combine(FileSystem.AppDataDirectory, $"{UserID}qqHead.png");
         private static float CalculateSinglePTT(int score, float constant)
         {
             var ptt = score switch

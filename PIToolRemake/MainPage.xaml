@@ -27,13 +27,6 @@
                 HorizontalOptions="Fill"/>
 
             <Button
-                x:Name="ScenListRksBtn"
-                Text="场景库得分排名"
-                SemanticProperties.Hint="获取当前世界的排名！"
-                Clicked="ScenListRksBtn_Clicked"    
-                HorizontalOptions="Fill" />
-
-            <Button
                 x:Name="RandomScenBtn"
                 Text="试试手气？"
                 SemanticProperties.Hint="随机获取一个场景！"

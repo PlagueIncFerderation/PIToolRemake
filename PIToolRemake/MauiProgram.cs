@@ -12,6 +12,8 @@ namespace PIToolRemake
         public static Dictionary<string, Player> Players { get; set; } = [];
         public static Dictionary<int, ScenarioScoreOfOnePlayer> ScoreListOfOnePlayer { get; set; } = [];
         public static Dictionary<int, ScenarioScoreOfOneScenario> ScoreListOfOneScenario { get; set; } = [];
+        public static Dictionary<int, string> UserIDToUserQQ => Players.ToDictionary(pair => pair.Value.ID, pair => pair.Key);
+
         public static async Task GetScenarioListAsync()
         {
             string query = "SELECT scenarioid, scenarioname, multiplier, constant, author, packid, feature FROM public.scenario";
@@ -25,8 +27,8 @@ namespace PIToolRemake
                 {
                     Scenario scenario = new Scenario
                     {
-                        ScenarioID = reader.GetInt32(reader.GetOrdinal("scenarioid")),
-                        ScenarioName = reader.GetString(reader.GetOrdinal("scenarioname")),
+                        ID = reader.GetInt32(reader.GetOrdinal("scenarioid")),
+                        Name = reader.GetString(reader.GetOrdinal("scenarioname")),
                         ScoreMultiplier = reader.GetFloat(reader.GetOrdinal("multiplier")),
                         Author = reader.GetString(reader.GetOrdinal("author")),
                         Constant = reader.GetFloat(reader.GetOrdinal("constant")),
@@ -36,7 +38,7 @@ namespace PIToolRemake
                     Scenarios.Add(scenario);
                 }
             }
-            ScenarioDictionary = Scenarios.ToDictionary(item => item.ScenarioID, item => item);
+            ScenarioDictionary = Scenarios.ToDictionary(item => item.ID, item => item);
         }
 
         public static async Task GetPackageListAsync()

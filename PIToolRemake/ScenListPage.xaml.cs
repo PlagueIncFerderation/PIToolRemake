@@ -48,7 +48,7 @@ namespace PIToolRemake
         }
         private void OnSortByID(object sender, EventArgs e)
         {
-            _viewModel.ScenList = [.. _viewModel.ScenList.OrderBy(scenList => scenList.ScenarioID)];
+            _viewModel.ScenList = [.. _viewModel.ScenList.OrderBy(scenList => scenList.ID)];
             RefreshScenarioList();
         }
         private void RefreshScenarioList()
@@ -73,7 +73,7 @@ namespace PIToolRemake
         }
         public void OnSelectLevel(int levelId)
         {
-            //await Navigation.PushAsync(new ScenarioScorePage);
+            Navigation.PushAsync(new ScenarioScorePage(MauiProgram.Scenarios[levelId]));
             throw new NotImplementedException();
         }
     }

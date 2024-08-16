@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:PIToolRemake"
+             x:Class="PIToolRemake.ScenarioScorePage"
+             Title="场景库排名">
+    <ContentPage.BindingContext>
+        <local:ScenarioScorePageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <local:ScoreToColorConverter x:Key="ScoreToColorConverter"/>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Image Source="{Binding Scenario.CacheFilePath}"/>
+            <StackLayout Orientation="Vertical">
+                <Label Text="{Binding Scenario.FeatureString}" FontSize="Large"/>
+                <Label Text="{Binding Scenario.Feature}" FontSize="Medium"/>
+            </StackLayout>
+        </HorizontalStackLayout>
+
+        <ScrollView Padding="30,0"
+        Orientation="Both"
+        HorizontalOptions="Fill">
+            <VerticalStackLayout
+            Spacing="10"
+            Margin="10"
+            Padding="30,0">
+                <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding Ranking, StringFormat='#{0}'}" FontSize="Large"/>
+                                    <Image Source="{Binding CachePath}"/>
+                                    <Label Text="{Binding Score}" FontSize="Medium"/>
+                                    <Label Text="{Binding Potential,StringFormat='PTT: {0:F2}'}" FontSize="Medium"/>
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

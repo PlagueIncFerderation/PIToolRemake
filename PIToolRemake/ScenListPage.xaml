@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:PIToolRemake"
              x:Class="PIToolRemake.ScenListPage"
-             Title="场景库内容视图">
+             Title="场景库内容视图，点击场景头像查看世界排名！">
     <ContentPage.BindingContext>
         <local:ScenListPageViewModel/>
     </ContentPage.BindingContext>
@@ -69,7 +69,10 @@
                             <ViewCell>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding ScenarioID}" FontSize="Large"/>
-                                    <ImageButton Source="{Binding CacheFilePath}" Clicked="OnRankingListQuery"/>
+                                    <ImageButton Source="{Binding CacheFilePath}" 
+                                                 Command="{Binding BindingContext.SelectLevelCommand, 
+                                        Source={x:Reference collectionView}}"
+                                                 CommandParameter="{Binding LevelId}"/>
 
                                     <Grid>
                                         <Grid.ColumnDefinitions>
