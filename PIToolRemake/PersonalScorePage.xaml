@@ -15,7 +15,8 @@
 
     <VerticalStackLayout Margin="20">
         <HorizontalStackLayout Spacing="15">
-            <Image Source="{Binding FilePath}"/>
+            <Image Source="{Binding FilePath}" Aspect="AspectFit"
+                   HeightRequest="128" WidthRequest="128"/>
             <!--TODO: write the part of getiing image of the user's head-->
             <Grid RowSpacing="10" ColumnSpacing="30">
                 <Grid.RowDefinitions>
