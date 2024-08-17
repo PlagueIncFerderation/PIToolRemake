@@ -10,40 +10,36 @@
 
     <ContentPage.Resources>
         <local:ScoreToColorConverter x:Key="ScoreToColorConverter"/>
+        <local:FeatureConverter x:Key="FeatureConverter"/>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
-            <Image Source="{Binding Scenario.CacheFilePath}"/>
-            <StackLayout Orientation="Vertical">
-                <Label Text="{Binding Scenario.FeatureString}" FontSize="Large"/>
-                <Label Text="{Binding Scenario.Feature}" FontSize="Medium"/>
+    <VerticalStackLayout Padding="30,0">
+        <HorizontalStackLayout Margin="15" Spacing="15">
+            <Image Source="{Binding Scenario.CacheFilePath}" Aspect="AspectFit" 
+                   HeightRequest="128" WidthRequest="128" />
+            <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                <Label Text="{Binding Scenario.Name}" FontSize="Large"/>
+                <Label Text="{Binding Scenario.Constant, StringFormat='定数：{0:F1}'}" FontSize="Small"/>
+                <Label Text="{Binding Scenario.Feature, Converter={StaticResource FeatureConverter}}" FontSize="Medium"/>
             </StackLayout>
         </HorizontalStackLayout>
 
-        <ScrollView Padding="30,0"
-        Orientation="Both"
-        HorizontalOptions="Fill">
-            <VerticalStackLayout
-            Spacing="10"
-            Margin="10"
-            Padding="30,0">
-                <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <HorizontalStackLayout>
-                                    <Label Text="{Binding Ranking, StringFormat='#{0}'}" FontSize="Large"/>
-                                    <Image Source="{Binding CachePath}"/>
-                                    <Label Text="{Binding Score}" FontSize="Medium"/>
-                                    <Label Text="{Binding Potential,StringFormat='PTT: {0:F2}'}" FontSize="Medium"/>
-                                </HorizontalStackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList"
+                        VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                        VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="15" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Ranking, StringFormat='#{0}'}" FontSize="Large" VerticalOptions="Center"/>
+                        <Image Source="{Binding CachePath}" Aspect="AspectFit" HeightRequest="32" WidthRequest="32"/>
+                        <Label Text="{Binding Nickname}" VerticalOptions="Center"/>
+                        <Label Text="{Binding Score}" VerticalOptions="Center"
+                               TextColor="{Binding Score, Converter={StaticResource ScoreToColorConverter}}"/>
+                        <Label Text="{Binding Potential,StringFormat='PTT: {0:F2}'}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

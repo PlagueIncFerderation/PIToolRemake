@@ -1,3 +1,4 @@
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -18,8 +19,13 @@ public partial class ScenarioScorePage : ContentPage
     {
         base.OnAppearing();
         await MauiProgram.GetScoresOfOneScenarioAsync(_scenario.ID);
-        foreach (var item in MauiProgram.ScoreListOfOneScenario) 
-            _viewModel.ScoreList.Add(item.Value);
+        var scs = MauiProgram.ScoreListOfOneScenario.Values.OrderByDescending(p => p.Score).Select((s, index) =>
+        {
+            s.Ranking = index + 1; // ·ÖÅäÅÅÃû
+            return s;
+        }).ToList();
+        foreach (var item in scs) 
+            _viewModel.ScoreList.Add(item);
         _viewModel.ScoreList = [.. _viewModel.ScoreList.OrderBy(item => item.Ranking)];
         _viewModel.Scenario = _scenario;
         BindingContext = _viewModel;

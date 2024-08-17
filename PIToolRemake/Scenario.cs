@@ -11,7 +11,7 @@ namespace PIToolRemake
         public string Author { get; set; } = "";
         public int Feature { get; set; } = 0;
         public string Package { get; set; } = "";
-        public string ImageUrl => $"http://47.241.0.156:34567/WebAPI/public/icons/{ID}.png";
+        public string ImageUrl => $"http://47.93.57.125:521/WebAPI/public/icons/{ID}.png";
         public string CacheFilePath => Path.Combine(FileSystem.AppDataDirectory, $"{ID}.png");
         public string FeatureString => Name + $"[{Constant}]";
     }

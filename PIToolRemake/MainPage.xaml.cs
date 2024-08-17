@@ -23,10 +23,15 @@
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            await MauiProgram.GetScenarioListAsync();
-            await MauiProgram.GetPackageListAsync();
-            await MauiProgram.GetPlayerListAsync();
-            await MauiProgram.GetScenarioImageAsync();
+            if (MauiProgram.Scenarios.Count == 0)
+            {
+                await MauiProgram.GetScenarioListAsync();
+                await MauiProgram.GetScenarioImageAsync();
+            }
+            if (MauiProgram.Packages.Count == 0)
+                await MauiProgram.GetPackageListAsync();
+            if (MauiProgram.Players.Count == 0)
+                await MauiProgram.GetPlayerListAsync();
         }
 
         private void ScoreCalBtn_Clicked(object sender, EventArgs e)
@@ -37,11 +42,6 @@
         private void ScenListScoreBtn_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new PersonalScoreQueryPage());
-        }
-
-        private void ScenListRksBtn_Clicked(object sender, EventArgs e)
-        {
-
         }
 
         private void RandomScenBtn_Clicked(object sender, EventArgs e)

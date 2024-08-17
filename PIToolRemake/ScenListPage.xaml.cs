@@ -26,8 +26,6 @@ namespace PIToolRemake
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public ICommand? RankingsQueryCommand { get; set; }
     }
 
     public partial class ScenListPage : ContentPage
@@ -37,14 +35,15 @@ namespace PIToolRemake
         {
             InitializeComponent();
             _viewModel = new ScenListPageViewModel();
-            _viewModel.RankingsQueryCommand = new Command<int>(OnSelectLevel);
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _viewModel.ScenList.Clear();
             foreach (var scenario in MauiProgram.Scenarios)
                 _viewModel.ScenList.Add(scenario);
             BindingContext = _viewModel;
+            RefreshScenarioList();
         }
         private void OnSortByID(object sender, EventArgs e)
         {
@@ -71,10 +70,28 @@ namespace PIToolRemake
             _viewModel.ScenList = [.. _viewModel.ScenList.OrderByDescending(scenario => scenario.Author)];
             RefreshScenarioList();
         }
-        public void OnSelectLevel(int levelId)
+        private void OnButtonClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ScenarioScorePage(MauiProgram.Scenarios[levelId]));
-            throw new NotImplementedException();
+            if (sender is ImageButton button)
+            {
+                if (button.BindingContext is Scenario item)
+                {
+                    // 导航到新页面，并传递页码信息
+                    Navigation.PushAsync(new ScenarioScorePage(item));
+                }
+            }
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            if (sender is ImageButton button)
+            {
+                if (button.BindingContext is Scenario item)
+                {
+                    // 导航到新页面，并传递页码信息
+                    Navigation.PushAsync(new ScenarioScorePage(item));
+                }
+            }
         }
     }
 }

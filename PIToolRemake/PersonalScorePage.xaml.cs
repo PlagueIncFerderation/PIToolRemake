@@ -51,7 +51,7 @@ public class PersonalScorePageViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private static ObservableCollection<ScenarioScoreOfOnePlayer> _scoreList = [];
+    private ObservableCollection<ScenarioScoreOfOnePlayer> _scoreList = [];
     public ObservableCollection<ScenarioScoreOfOnePlayer> ScoreList
     {
         get { return _scoreList; }

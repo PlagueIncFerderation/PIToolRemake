@@ -1,10 +1,9 @@
 ﻿namespace PIToolRemake
 {
-    public class ScenarioScoreOfOnePlayer(int scenarioID, int ranking, int score)
+    public class ScenarioScoreOfOnePlayer(int scenarioID, int score)
     {
         public int ScenarioID { get; private set; } = scenarioID;
         public string ScenarioName => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.Name : string.Empty;
-        public int Ranking { get; private set; }= ranking;
         public int Score {  get; private set; }= score;
         public float ScenarioConstant => MauiProgram.ScenarioDictionary.TryGetValue(ScenarioID, out var item) ? item.Constant : 0;
         public float IndividualPotential => CalculateSinglePTT(Score, ScenarioConstant);

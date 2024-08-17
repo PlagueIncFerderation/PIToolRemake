@@ -38,7 +38,8 @@ namespace PIToolRemake
                     Scenarios.Add(scenario);
                 }
             }
-            ScenarioDictionary = Scenarios.ToDictionary(item => item.ID, item => item);
+            if (ScenarioDictionary.Count == 0)
+                ScenarioDictionary = Scenarios.ToDictionary(item => item.ID, item => item);
         }
 
         public static async Task GetPackageListAsync()
@@ -74,8 +75,7 @@ namespace PIToolRemake
                 {
                     int id = reader.GetInt32(reader.GetOrdinal("scenarioid"));
                     int score = reader.GetInt32(reader.GetOrdinal("score"));
-                    int ranking = reader.GetInt32(reader.GetOrdinal("rating"));
-                    ScoreListOfOnePlayer.Add(id, new ScenarioScoreOfOnePlayer(id,score,ranking));
+                    ScoreListOfOnePlayer.Add(id, new ScenarioScoreOfOnePlayer(id, score));
                 }
             }
         }
@@ -83,7 +83,6 @@ namespace PIToolRemake
         public static async Task GetScoresOfOneScenarioAsync(int scenarioID)
         {
             ScoreListOfOneScenario.Clear();
-            ScenarioScoreOfOneScenario.Constant = ScenarioDictionary.TryGetValue(scenarioID, out var item) ? item.Constant : 0;
             string query = "SELECT userid, score, rating FROM public.score WHERE scenarioid=@scenarioid";
             using var connection = new NpgsqlConnection(Configs.ConnectionStr);
             await connection.OpenAsync();
@@ -96,10 +95,11 @@ namespace PIToolRemake
                 {
                     int id = reader.GetInt32(reader.GetOrdinal("userid"));
                     int score = reader.GetInt32(reader.GetOrdinal("score"));
-                    int ranking = reader.GetInt32(reader.GetOrdinal("rating"));
+                    float ranking = reader.GetFloat(reader.GetOrdinal("rating"));
                     ScoreListOfOneScenario.Add(id, new ScenarioScoreOfOneScenario(id, score, ranking));
                 }
             }
+
         }
 
         public static async Task GetPlayerListAsync()

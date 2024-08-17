@@ -13,11 +13,11 @@
         <local:ScoreToColorConverter x:Key="ScoreToColorConverter"/>
     </ContentPage.Resources>
 
-    <VerticalStackLayout>
-        <HorizontalStackLayout>
+    <VerticalStackLayout Margin="20">
+        <HorizontalStackLayout Spacing="15">
             <Image Source="{Binding FilePath}"/>
             <!--TODO: write the part of getiing image of the user's head-->
-            <Grid>
+            <Grid RowSpacing="10" ColumnSpacing="30">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -28,90 +28,63 @@
                 </Grid.ColumnDefinitions>
 
                 <Label
-                    Text="{Binding Player.Nickname, StringFormat='昵称：{0}'}"
+                    Text="{Binding Player.Nickname, StringFormat='{0}'}"
                     Grid.Column="0"
-                    Grid.Row="0"/>
+                    Grid.Row="0"
+                    FontSize="Medium"
+                    VerticalOptions="Center"/>
 
                 <Label
                     Text="{Binding Player.TotalScore, StringFormat='总分：{0}'}"
                     Grid.Column="1"
-                    FontFamily="Consolas"
-                    Grid.Row="0"/>
+                    Grid.Row="0"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    />
 
                 <Label
                     Text="{Binding Player.Potential, StringFormat='PTT：{0}'}"
                     Grid.Column="0"
                     Grid.Row="1"
-                    FontFamily="Consolas"
-                    FontSize="Medium"/>
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    FontSize="Small"
+                    />
 
                 <Label
                     Text="{Binding Player.Ranking, StringFormat='#{0}'}"
                     Grid.Column="1"
                     Grid.Row="1"
-                    FontFamily="Consolas"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
                     FontSize="Large"/>
             </Grid>
         </HorizontalStackLayout>
-        
-        <ScrollView Padding="30,0"
-            Orientation="Both"
-            HorizontalOptions="Fill">
-            <VerticalStackLayout
-                Spacing="10"
-                Margin="10"
-                Padding="30,0">
-                <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <HorizontalStackLayout>
-                                    <Image Source="{Binding CacheFilePath}"/>
-                                    <!--TODO: the head of the scenario-->
 
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
 
-                                        <Label
-                                            Text="{Binding ScenarioFeatureString}"
-                                            Grid.Column="0"
-                                            Grid.Row="0"/>
+        <CollectionView ItemsSource="{Binding ScoreList}" x:Name="scenarioList" 
+                        Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="FillAndExpand">
+                        <Image Source="{Binding CacheFilePath}"
+                               Aspect="AspectFit"
+                               HeightRequest="32"/>
+                        <!--TODO: the head of the scenario-->
+                        <Label Text="{Binding ScenarioName}"
+                               VerticalOptions="Center"/>
 
-                                        <Label
-                                            Text="{Binding Score}"
-                                            TextColor="{Binding Score, Converter={StaticResource ScoreToColorConverter}}"
-                                            FontFamily="Consolas"
-                                            Grid.Column="1"
-                                            Grid.Row="0"/>
+                        <Label Text="{Binding Score}"
+                               TextColor="{Binding Score, Converter={StaticResource ScoreToColorConverter}}"
+                               VerticalOptions="Center"/>
 
-                                        <Label
-                                            Text="{Binding IndividualPotential}"
-                                            FontFamily="Consolas"
-                                            FontSize="Medium"
-                                            Grid.Column="0"
-                                            Grid.Row="1"/>
+                        <Label Text="{Binding IndividualPotential,StringFormat='PTT: {0:f2}'}"
+                               VerticalOptions="Center"
+                                            />
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
-                                        <Label
-                                            Text="{Binding IndividualPotential, StringFormat='#{0}'}"
-                                            FontSize="Large"
-                                            FontFamily="Consolas"
-                                            Grid.Column="1"
-                                            Grid.Row="1"/>
-                                    </Grid>
-                                </HorizontalStackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-
-        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>
